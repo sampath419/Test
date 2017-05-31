@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Employees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class='hide_show_average'>Average Total Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+        <td class="hide_show_average"><%= (employee.orders.sum(&:total_price) / employee.orders.size) if employee.orders.any?  %></td>
+        <td><%= link_to 'Show', employee %></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Employee', new_employee_path %>
+
+<%= link_to 'Recent Orders', recent_orders_employees_path %>
+
+<%= button_tag 'Show Average Total Price', :id => "show_average_total_button" %>
+<%= button_tag 'Hide Average Total Price', :id => "hide_average_total_button", :class => 'hide_show_average' %>

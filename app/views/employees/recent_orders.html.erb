@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Employees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Average Total price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+        <td><%= (employee.orders.sum(&:total_price) / employee.orders.size) if employee.orders.any?  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
